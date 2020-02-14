@@ -1,4 +1,4 @@
-# Project 2, BGo Chase It!
+# Project 2, Go Chase It!
 ## Udacity Robotics Software Engineer Nanodegree
 Go Chase It! project of the Robotics Software Engineer Nanodegree program from Udacity.
 
