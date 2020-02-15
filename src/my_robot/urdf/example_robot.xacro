@@ -5,13 +5,6 @@
     <!-- PLUGINS -->
     <xacro:include filename="$(find my_robot)/urdf/my_robot.gazebo" />
 
-    <!-- PROPERTIES -->
-    <xacro:property name="wheel_width" value="0.06" />
-    <xacro:property name="wheel_rad" value="0.1" />
-    <xacro:property name="wheel_forward_offset" value="0.13" />
-    <xacro:property name="wheel_left_offset" value="0.15" />
-    <xacro:property name="wheel_friction" value="0.3" />
-
     <link name="robot_footprint"></link>
 
     <joint name="robot_footprint_joint" type="fixed">
@@ -21,7 +14,7 @@
     </joint>
 
     <link name='chassis'>
-        <!-- <pose>0 0 0.1 0 0 0</pose> -->
+        <pose>0 0 0.1 0 0 0</pose>
 
         <inertial>
             <mass value="15.0"/>
@@ -32,29 +25,60 @@
         <collision name='collision'>
             <origin xyz="0 0 0" rpy=" 0 0 0"/>
             <geometry>
-                <box size=".4 .22 .12"/>
+                <box size=".4 .2 .1"/>
             </geometry>
         </collision>
 
         <visual name='chassis_visual'>
             <origin xyz="0 0 0" rpy=" 0 0 0"/>
             <geometry>
-                <box size=".4 .22 .12"/>
+                <box size=".4 .2 .1"/>
             </geometry>
         </visual>
+
+
+        <collision name='back_caster_collision'>
+            <origin xyz="-0.15 0 -0.05" rpy=" 0 0 0"/>
+            <geometry>
+                <sphere radius="0.0499"/>
+            </geometry>
+        </collision>
+
+        <visual name='back_caster_visual'>
+            <origin xyz="-0.15 0 -0.05" rpy=" 0 0 0"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+        </visual>
+
+        <collision name='front_caster_collision'>
+            <origin xyz="0.15 0 -0.05" rpy=" 0 0 0"/>
+            <geometry>
+                <sphere radius="0.0499"/>
+            </geometry>
+        </collision>
+
+        <visual name='front_caster_visual'>
+            <origin xyz="0.15 0 -0.05" rpy=" 0 0 0"/>
+            <geometry>
+                <sphere radius="0.05"/>
+            </geometry>
+        </visual>
+
     </link>
 
     <!-- WHEELS - - - - - - - - -->
-    <link name="front_left_wheel">
-        <visual name="front_left_wheel_visual">
+    <link name="left_wheel">
+        <!-- <pose>0 0 0 0 1.5707 1.5707</pose> -->
+        <visual name="left_wheel_visual">
             <geometry>
-                <cylinder radius="${wheel_rad}" length="${wheel_width}"/>
+                <cylinder radius="0.1" length="0.05"/>
             </geometry>
             <origin xyz="0.0 0.0 0.0" rpy="0 1.5707 1.5707"/>
         </visual>
-        <collision name="front_left_wheel_collision">
+        <collision name="left_wheel_collision">
             <geometry>
-                <cylinder radius="${wheel_rad}" length="${wheel_width}"/>
+                <cylinder radius="0.1" length="0.05"/>
             </geometry>
             <origin xyz="0.0 0.0 0.0" rpy="0 1.5707 1.5707"/>
         </collision>
@@ -63,126 +87,44 @@
             <mass value="5.0"/>
             <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
         </inertial>
-        <!-- Feature to see wheel rotating -->
-        <visual name='front_left_wheel_bump'>
-            <origin xyz="0.05 0.03 0.05" rpy=" 0 0 0"/>
-            <geometry>
-                <sphere radius="0.02"/>
-            </geometry>
-        </visual>
-    </link>
-    <link name="front_right_wheel">
-        <!-- <pose>0 0 0 0 1.5707 1.5707</pose> -->
-        <visual name="front_right_wheel_visual">
-            <geometry>
-                <cylinder radius="${wheel_rad}" length="${wheel_width}"/>
-            </geometry>
-            <origin xyz="0.0 0.0 0.0" rpy="0 1.5707 1.5707"/>
-        </visual>
-        <collision name="front_right_wheel_collision">
-            <geometry>
-                <cylinder radius="${wheel_rad}" length="${wheel_width}"/>
-            </geometry>
-            <origin xyz="0.0 0.0 0.0" rpy="0 1.5707 1.5707"/>
-        </collision>
-        <inertial>
-            <origin xyz="0.0 0.0 0" rpy="00 1.5707 1.5707"/>
-            <mass value="5.0"/>
-            <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
-        </inertial>
-        <!-- Feature to see wheel rotating -->
-        <visual name='front_right_wheel_bump'>
-            <origin xyz="0.05 -0.03 0.05" rpy=" 0 0 0"/>
-            <geometry>
-                <sphere radius="0.02"/>
-            </geometry>
-        </visual>
-    </link>
-    <link name="back_left_wheel">
-        <visual name="back_left_wheel_visual">
-            <geometry>
-                <cylinder radius="${wheel_rad}" length="${wheel_width}"/>
-            </geometry>
-            <origin xyz="0.0 0.0 0.0" rpy="0 1.5707 1.5707"/>
-        </visual>
-        <collision name="back_left_wheel_collision">
-            <geometry>
-                <cylinder radius="${wheel_rad}" length="${wheel_width}"/>
-            </geometry>
-            <origin xyz="0.0 0.0 0.0" rpy="0 1.5707 1.5707"/>
-        </collision>
-        <inertial>
-            <origin xyz="0.0 0.0 0" rpy="0 1.5707 1.5707"/>
-            <mass value="5.0"/>
-            <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
-        </inertial>
-        <!-- Feature to see wheel rotating -->
-        <visual name='back_right_wheel_bump'>
-            <origin xyz="0.05 0.03 0.05" rpy=" 0 0 0"/>
-            <geometry>
-                <sphere radius="0.02"/>
-            </geometry>
-        </visual>
-    </link>
-    <link name="back_right_wheel">
-        <!-- <pose>0 0 0 0 1.5707 1.5707</pose> -->
-        <visual name="back_right_wheel_visual">
-            <geometry>
-                <cylinder radius="${wheel_rad}" length="${wheel_width}"/>
-            </geometry>
-            <origin xyz="0.0 0.0 0.0" rpy="0 1.5707 1.5707"/>
-        </visual>
-        <collision name="back_right_wheel_collision">
-            <geometry>
-                <cylinder radius="${wheel_rad}" length="${wheel_width}"/>
-            </geometry>
-            <origin xyz="0.0 0.0 0.0" rpy="0 1.5707 1.5707"/>
-        </collision>
-        <inertial>
-            <origin xyz="0.0 0.0 0" rpy="00 1.5707 1.5707"/>
-            <mass value="5.0"/>
-            <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
-        </inertial>
-        <!-- Feature to see wheel rotating -->
-        <visual name='front_right_wheel_bump'>
-            <origin xyz="0.05 -0.03 0.05" rpy=" 0 0 0"/>
-            <geometry>
-                <sphere radius="0.02"/>
-            </geometry>
-        </visual>
     </link>
 
-    <joint type="continuous" name="front_left_wheel_joint">
-        <origin xyz="${wheel_forward_offset} ${wheel_left_offset} 0" rpy="0 0 0"/>
-        <child link="front_left_wheel"/>
+    <link name="right_wheel">
+        <!-- <pose>0 0 0 0 1.5707 1.5707</pose> -->
+        <visual name="right_wheel_visual">
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0 1.5707 1.5707"/>
+        </visual>
+        <collision name="right_wheel_collision">
+            <geometry>
+                <cylinder radius="0.1" length="0.05"/>
+            </geometry>
+            <origin xyz="0.0 0.0 0.0" rpy="0 1.5707 1.5707"/>
+        </collision>
+        <inertial>
+            <origin xyz="0.0 0.0 0" rpy="00 1.5707 1.5707"/>
+            <mass value="5.0"/>
+            <inertia ixx="0.1" ixy="0.0" ixz="0.0" iyy="0.1" iyz="0.0" izz="0.1"/>
+        </inertial>
+    </link>
+
+    <joint type="continuous" name="left_wheel_hinge">
+        <origin xyz="0 0.15 0" rpy="0 0 0"/>
+        <child link="left_wheel"/>
         <parent link="chassis"/>
         <axis xyz="0 1 0" rpy="0 0 0"/>
         <limit effort="10000" velocity="1000"/>
-        <dynamics damping="1.0" friction="${wheel_friction}"/>
+        <dynamics damping="1.0" friction="1.0"/>
     </joint>
-    <joint type="continuous" name="front_right_wheel_joint">
-        <origin xyz="${wheel_forward_offset} -${wheel_left_offset} 0" rpy="0 0 0"/>
-        <child link="front_right_wheel"/>
+    <joint type="continuous" name="right_wheel_hinge">
+        <origin xyz="0 -0.15 0" rpy="0 0 0"/>
+        <child link="right_wheel"/>
         <parent link="chassis"/>
         <axis xyz="0 1 0" rpy="0 0 0"/>
         <limit effort="10000" velocity="1000"/>
-        <dynamics damping="1.0" friction="${wheel_friction}"/>
-    </joint>
-    <joint type="continuous" name="back_left_wheel_joint">
-        <origin xyz="-${wheel_forward_offset} ${wheel_left_offset} 0" rpy="0 0 0"/>
-        <child link="back_left_wheel"/>
-        <parent link="chassis"/>
-        <axis xyz="0 1 0" rpy="0 0 0"/>
-        <limit effort="10000" velocity="1000"/>
-        <dynamics damping="1.0" friction="${wheel_friction}"/>
-    </joint>
-    <joint type="continuous" name="back_right_wheel_joint">
-        <origin xyz="-${wheel_forward_offset} -${wheel_left_offset} 0" rpy="0 0 0"/>
-        <child link="back_right_wheel"/>
-        <parent link="chassis"/>
-        <axis xyz="0 1 0" rpy="0 0 0"/>
-        <limit effort="10000" velocity="1000"/>
-        <dynamics damping="1.0" friction="${wheel_friction}"/>
+        <dynamics damping="1.0" friction="1.0"/>
     </joint>
 
     <!-- SENSORS - - - - - - - - -->
@@ -207,12 +149,6 @@
             <geometry>
                 <box size="0.05 0.05 0.05"/>
             </geometry>
-            <friction>
-            <ode>
-                <mu>0.1</mu>
-                <mu2>0.1</mu2>
-            </ode>
-            </friction>
         </collision>
     </link>
     <joint name="camera_joint" type="fixed">
