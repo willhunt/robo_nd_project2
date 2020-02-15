@@ -19,7 +19,7 @@ $ cd /home/workspace/catkin_ws/src/
 $ git clone https://github.com/willhunt/robo_nd_project2.git robo_nd_project2
 ```
 
-#### Build the `obo_nd_project2` package
+#### Build the `robo_nd_project2` package
 ```sh
 $ cd /home/workspace/catkin_ws/ 
 $ catkin_make

@@ -1,0 +1,8 @@
+prefix=/home/will/Documents/robo_nd_project2/install
+
+Name: my_robot
+Description: Description of my_robot
+Version: 0.0.0
+Cflags: 
+Libs: -L${prefix}/lib 
+Requires: 
