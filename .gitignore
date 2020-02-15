@@ -11,5 +11,9 @@ compile_commands.json
 CTestTestfile.cmake
 _deps
 
+# catkin build and devel directories
+build/
+devel/
+
 # vscode settings
 .vscode/
