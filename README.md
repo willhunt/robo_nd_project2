@@ -36,14 +36,14 @@ $ roslaunch my_robot world.launch
 #### In a new terminal launch the ball chaser node:
 ```sh
 $ cd /home/<project folder>/
-$ source devel/setup.basha
+$ source devel/setup.bash
 $ cd roslaunch ball_chaser ball_chaser.launch
 ```
 
 #### Optionally view the RGB camera feed, in a new terminal enter:
 ```sh
 $ cd /home/<project folder>/
-$ source devel/setup.basha
+$ source devel/setup.bash
 $ rosrun rqt_image_view rqt_image_view  
 ```
 
